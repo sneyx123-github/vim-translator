@@ -15,7 +15,7 @@ function! s:googMergeConf(gconf,uconf)
   endif
 endfunction
 
-let s:goog_conf = { 'charset': 'utf-8', 'langpair' : 'en|ru'}
+let s:goog_conf = { 'charset': 'utf-8', 'langpair' : 'en|ru', 'cmd' : 'ruby'}
 
 
 "@complete
@@ -58,7 +58,11 @@ function! s:GoogTranslate(...)
   let s:query = a:000
 
   "call sub translator
-  let outp = s:_googRBTranslate(s:query)
+  if s:goog_conf.cmd == "ruby"
+    let outp = s:_googRBTranslate(s:query)
+  elseif s:goog_conf.cmd == "node"
+    let outp = system("node ~/.vim/bundle/vim-translator/plugin/js/goog-translator.js ".string(s:query).' '.string(s:goog_conf.langpair))
+  endif
 
   echo iconv(outp,s:goog_conf.charset,&enc)
 

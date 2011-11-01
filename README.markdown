@@ -12,7 +12,7 @@ Note: With a large number of text program can take some time
 Installation
 ------------
 
-To use the translator you need to install Ruby and the VIM to support Ruby.
+To use the translator you need to install Ruby and the VIM to support Ruby, or nodejs.
 For version 1.2 and earlier you must also install gem json.
 
 Configuration
@@ -23,5 +23,6 @@ The whole setting is made through a variable `g:goog_user_conf` in your vimrc fi
 > `g:goog_user_conf` = {
     'langpair' : 'en|ru',
    `'v_key'` : 'T', "define key in visual-mode
-    'charset' : 'koi8-r'
+    'charset' : 'koi8-r',
+    'cmd' : 'node' " or ruby (by default 'ruby')
   }
