@@ -12,8 +12,18 @@ Note: With a large number of text program can take some time
 Installation
 ------------
 
-To use the translator you need to install Ruby and the VIM to support Ruby, or nodejs.
-For version 1.2 and earlier you must also install gem json.
+For version 1.3 you may choose driver for translate, now available ruby and node.js
+
+Ruby
+* install ruby
+* install vim with supporting ruby
+
+Node.js
+* install node.js
+
+If you use version 1.2(that do not support nodejs) you must install ruby and install gem json.
+
+place files in `plugin` directory or under bundle `bundle/vim-translator`
 
 Configuration
 -------------
@@ -21,15 +31,36 @@ Configuration
 The whole setting is made through a variable `g:goog_user_conf` in your vimrc file.
 
 ---------
-
-example user configuration
+user configuration for ruby
 
 ```vim
+  ".vimrc
   g:goog_user_conf = {
-    'langpair': 'en|ru',
-    'v_key': 'T', "define key in visual-mode
-    'charset' : 'koi8-r', "if need change encoding (use iconv)
-    'cmd' : 'node' "or ruby (by default 'ruby')
+    'langpair': 'en|ru', "language code iso 639-1
+    'v_key': 'T' "? define key in visual-mode (optional)
+  }
+```
+---------
+user configuration for node.js
+
+```vim
+  ".vimrc
+  g:goog_user_conf = {
+    'langpair': 'en|ru', "language code iso 639-1
+    'cmd': 'node',
+    'v_key': 'T' "? define key in visual-mode (optional)
+  }
+```
+---------
+user configuration with available parameters
+
+```vim
+  ".vimrc
+  g:goog_user_conf = {
+    'langpair': 'en|ru', "language code iso 639-1
+    'cmd' : 'node',
+    'v_key': 'T', "? define key in visual-mode (optional)
+    'charset' : 'koi8-r' "? if need change encoding (use iconv) (optional)
   }
 ```
 
