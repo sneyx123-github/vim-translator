@@ -1,5 +1,6 @@
 /* AUTHOR:  Maksim Ryzhikov
  * NAME:    goog-translator.js
+ * DRIVER: nodejs
  * VERSION: 0.1.0
  * URL: https://github.com/maksimr
  */
@@ -18,16 +19,25 @@
 			var lng = (langpair || this.langpair).split("|"),
 			hl = lng[0],
 			tl = lng[1],
-			sl = hl;
+			sl = hl,
+			_outp = '';
+			/*
+       * send request
+       */
 			return http.get({
 				host: 'translate.google.com',
 				port: 80,
-				path: "/translate_a/t?client=t&text=" + encodeURIComponent(query) + "&hl=" + hl + "&sl=" + sl + "&tl=" + tl + "&multires=1&otf=1&trs=1&sc=1"
+				path: "/translate_a/t?client=t&text=" + encodeURIComponent(query) + "&hl=" + hl + "&sl=" + sl + "&tl=" + tl + "&multires=1&otf=1&ssel=0&tsel=0&sc=1"
 			},
 			function (res) {
+        /*
+         * handle response
+         */
 				res.on('data', function (chunk) {
-					var jsres = eval('(' + chunk + ')');
-					console.log(jsres[0][0][0]);
+					var jschunk = eval('(' + chunk + ')');
+					_outp += jschunk[0][0][0];
+				}).on('end', function () {
+					console.log(_outp);
 				});
 			}).on('error', function (e) {});
 		}
