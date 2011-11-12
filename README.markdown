@@ -14,12 +14,12 @@ Installation
 
 For version 1.3 you may choose driver for translate, now available ruby and node.js
 
-Ruby
-* install ruby
-* install vim with supporting ruby
+* Ruby
+  * install ruby
+  * install vim with supporting ruby
 
-Node.js
-* install node.js
+* Node.js
+  * install node.js
 
 If you use version 1.2(that do not support nodejs) you must install ruby and install gem json.
 
