@@ -20,11 +20,17 @@ Configuration
 
 The whole setting is made through a variable `g:goog_user_conf` in your vimrc file.
 
-> `g:goog_user_conf` = {
-    'langpair' : 'en|ru',
-   `'v_key'` : 'T', "define key in visual-mode
+---------
+
+example user configuration
+
+```vim
+  g:goog_user_conf = {
+    'langpair': 'en|ru',
+    'v_key': 'T', "define key in visual-mode
     'charset' : 'koi8-r', "if need change encoding (use iconv)
-    'cmd' : 'node' " or ruby (by default 'ruby')
+    'cmd' : 'node' "or ruby (by default 'ruby')
   }
+```
 
 (version: 1.3.1b)
