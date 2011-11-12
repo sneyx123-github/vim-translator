@@ -1,7 +1,7 @@
 translator.vim
 ============
 
-* [This is a mirror of](http://www.vim.org/scripts/script.php?script_id=3404)
+* [This is a mirror of vim.org](http://www.vim.org/scripts/script.php?script_id=3404)
 
 This script allows you to translate text using the google online translator.
 You can translate as single words and whole blocks using visual-mode.
@@ -23,6 +23,8 @@ The whole setting is made through a variable `g:goog_user_conf` in your vimrc fi
 > `g:goog_user_conf` = {
     'langpair' : 'en|ru',
    `'v_key'` : 'T', "define key in visual-mode
-    'charset' : 'koi8-r',
+    'charset' : 'koi8-r', "if need change encoding (use iconv)
     'cmd' : 'node' " or ruby (by default 'ruby')
   }
+
+(version: 1.3.1b)
