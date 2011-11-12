@@ -26,8 +26,14 @@
        */
 			return http.get({
 				host: 'translate.google.com',
+				path: "/translate_a/t?client=t&text=" + encodeURIComponent(query) + "&hl=" + hl + "&sl=" + sl + "&tl=" + tl + "&multires=1&otf=1&ssel=0&tsel=0&sc=1",
 				port: 80,
-				path: "/translate_a/t?client=t&text=" + encodeURIComponent(query) + "&hl=" + hl + "&sl=" + sl + "&tl=" + tl + "&multires=1&otf=1&ssel=0&tsel=0&sc=1"
+        headers: {
+          /*
+           * hack for fix encoding
+           */
+          'user-agent': 'Mozilla/5.0 (X11; Linux i686; rv:7.0.1) Gecko/20100101 Firefox/7.0.1'
+        }
 			},
 			function (res) {
         /*
