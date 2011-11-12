@@ -61,7 +61,7 @@ function! s:GoogTranslate(...)
   if s:goog_conf.cmd == "ruby"
     let outp = s:_googRBTranslate(s:query)
   elseif s:goog_conf.cmd == "node"
-    let outp = system("node ~/.vim/bundle/vim-translator/plugin/js/goog-translator.js ".string(s:query).' '.string(s:goog_conf.langpair))
+    let outp = system("node ~/.vim/bundle/vim-translator/plugin/js/goog-translator-coffee.js ".string(s:query).' '.string(s:goog_conf.langpair))
   endif
 
   echo iconv(outp,s:goog_conf.charset,&enc)
