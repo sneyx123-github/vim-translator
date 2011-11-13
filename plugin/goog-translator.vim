@@ -25,6 +25,19 @@ function! s:joinPah(...)
   return root."/".paths
 endfunction
 
+function! s:check(...)
+  let cmd = get(a:000,0,s:goog_conf.cmd)
+  let haz = 1
+
+  if !(has(cmd) || executable(cmd))
+    echohl ErrorMsg
+    echon "Sorry, Google Translator requires ".cmd." support"
+    let haz = 0
+  endif
+
+  return haz
+endfunction
+
 
 "@complete
 "gets words from open file
@@ -87,6 +100,8 @@ endfunction
 "sub translator is implemented on nodejs
 "@return String
 function! s:_googNodeJSTranslate(query)
+    if !s:check() | return 0 | endif
+
     let query = string(join(a:query,' '))
     let langpair = string(s:goog_conf.langpair)
 
@@ -97,6 +112,8 @@ endfunction
 "sub translator is implemented on lua
 "@return String
 function! s:_googLuaTranslate(query)
+    if !s:check() | return 0 | endif
+
     silent! exec "luafile ".s:joinPah("goog-translator.lua")
     return s:outp
 endfunction
@@ -104,12 +121,7 @@ endfunction
 "sub translator is implemented on ruby
 "@return String
 function! s:_googRBTranslate(query)
-  "warnings
-  if !has("ruby")
-    echohl ErrorMsg
-    echon "Sorry, Google Translator requires ruby support"
-    finish
-  endif
+  if !s:check() | return 0 | endif
 
   let result = ""
 
