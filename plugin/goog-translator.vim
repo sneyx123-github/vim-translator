@@ -1,9 +1,7 @@
 " AUTHOR:     Maksim Ryzhikov
 " Maintainer: Maksim Ryzhikov <rv.maksim@gmail.com>
 " VERSION:    1.3.1b
-" DONE: remove json dependency, g:vtranslate, g:langpair, fix encoding
-" ADD: configuration variable
-" TODO: fix output text with quotes in nodejs
+" TODO: write tests
 
 "@configuration
 function! s:googMergeConf(gconf,uconf)
@@ -15,6 +13,17 @@ function! s:googMergeConf(gconf,uconf)
 endfunction
 
 let s:goog_conf = { 'langpair' : 'en|ru', 'cmd' : 'ruby'}
+
+"set root script path
+let s:root_path = expand("<sfile>:p:h")
+
+"@helpers
+function! s:joinPah(...)
+  let paths = join(a:000,"/")
+  let root = s:root_path
+
+  return root."/".paths
+endfunction
 
 
 "@complete
@@ -61,7 +70,7 @@ function! s:GoogTranslate(...)
   if s:goog_conf.cmd == "ruby"
     let outp = s:_googRBTranslate(s:query)
   elseif s:goog_conf.cmd == "node"
-    let outp = system("node ~/.vim/bundle/vim-translator/plugin/js/goog-translator-coffee.js ".string(s:query).' '.string(s:goog_conf.langpair))
+    let outp = s:_googNodeJSTranslate(s:query)
   elseif s:goog_conf.cmd == "lua"
     let outp = s:_googLuaTranslate(s:query)
   endif
@@ -75,10 +84,20 @@ function! s:GoogTranslate(...)
   return outp
 endfunction
 
+"sub translator is implemented on nodejs
+"@return String
+function! s:_googNodeJSTranslate(query)
+    let query = string(join(a:query,' '))
+    let langpair = string(s:goog_conf.langpair)
+
+    let s:outp = system("node ".s:joinPah("js","goog-translator-coffee.js").' '.query.' '.langpair)
+    return s:outp
+endfunction
+
 "sub translator is implemented on lua
 "@return String
 function! s:_googLuaTranslate(query)
-    silent! exec "luafile ~/.vim/bundle/vim-translator/plugin/goog-translator.lua"
+    silent! exec "luafile ".s:joinPah("goog-translator.lua")
     return s:outp
 endfunction
 
