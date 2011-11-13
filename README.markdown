@@ -12,7 +12,7 @@ Note: With a large number of text program can take some time
 Installation
 ------------
 
-For version 1.3 you may choose driver for translate, now available ruby and node.js
+For version 1.3 you may choose driver for translate, now available ruby ,node.js, lua
 
 * Ruby
   * install ruby
@@ -20,6 +20,11 @@ For version 1.3 you may choose driver for translate, now available ruby and node
 
 * Node.js
   * install node.js
+
+* Lua
+  * install lua
+  * install vim with supporting lua
+  * install socket.http for lua (liblua5.1-socket-dev for ubuntu)
 
 If you use version 1.2(that do not support nodejs) you must install ruby and install gem json.
 
@@ -31,6 +36,7 @@ Configuration
 The whole setting is made through a variable `g:goog_user_conf` in your vimrc file.
 
 ---------
+
 user configuration for ruby
 
 ```vim
@@ -40,8 +46,9 @@ user configuration for ruby
     'v_key': 'T' "? define key in visual-mode (optional)
   }
 ```
----------
+
 user configuration for node.js
+
 
 ```vim
   ".vimrc
@@ -51,7 +58,18 @@ user configuration for node.js
     'v_key': 'T' "? define key in visual-mode (optional)
   }
 ```
----------
+user configuration for lua
+
+
+```vim
+  ".vimrc
+  g:goog_user_conf = {
+    'langpair': 'en|ru', "language code iso 639-1
+    'cmd': 'lua',
+    'v_key': 'T' "? define key in visual-mode (optional)
+  }
+```
+
 user configuration with available parameters
 
 ```vim

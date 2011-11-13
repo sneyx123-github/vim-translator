@@ -62,6 +62,8 @@ function! s:GoogTranslate(...)
     let outp = s:_googRBTranslate(s:query)
   elseif s:goog_conf.cmd == "node"
     let outp = system("node ~/.vim/bundle/vim-translator/plugin/js/goog-translator-coffee.js ".string(s:query).' '.string(s:goog_conf.langpair))
+  elseif s:goog_conf.cmd == "lua"
+    let outp = s:_googLuaTranslate(s:query)
   endif
 
   if has_key(s:goog_conf, 'charset')
@@ -71,6 +73,13 @@ function! s:GoogTranslate(...)
   endif
 
   return outp
+endfunction
+
+"sub translator is implemented on lua
+"@return String
+function! s:_googLuaTranslate(query)
+    silent! exec "luafile ~/.vim/bundle/vim-translator/plugin/goog-translator.lua"
+    return s:outp
 endfunction
 
 "sub translator is implemented on ruby
