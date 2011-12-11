@@ -12,7 +12,7 @@ Note: With a large number of text program can take some time
 Installation
 ------------
 
-For version 1.3 you may choose driver for translate, now available ruby ,node.js, lua
+For version 1.3 you may choose driver for translate, now available ruby ,node.js, v8cgi, lua
 
 * Ruby
   * install ruby
@@ -20,6 +20,10 @@ For version 1.3 you may choose driver for translate, now available ruby ,node.js
 
 * Node.js
   * install node.js
+
+* V8cgi
+  * install v8cgi
+  * [Documentation](http://code.google.com/p/v8cgi/wiki/Compiling)
 
 * Lua
   * install lua
@@ -81,5 +85,15 @@ user configuration with available parameters
     'charset' : 'koi8-r' "? if need change encoding (use iconv) (optional)
   }
 ```
+user configuration for v8cgi
 
-(version: 1.3.1b)
+
+```vim
+  ".vimrc
+  g:goog_user_conf = {
+    'langpair': 'en|ru',
+    'cmd': 'v8cgi'
+  }
+```
+
+(version: 1.3.2)

@@ -84,6 +84,8 @@ function! s:GoogTranslate(...)
     let outp = s:_googRBTranslate(s:query)
   elseif s:goog_conf.cmd == "node"
     let outp = s:_googNodeJSTranslate(s:query)
+  elseif s:goog_conf.cmd == "v8cgi"
+    let outp = s:_googV8cgiTranslate(s:query)
   elseif s:goog_conf.cmd == "lua"
     let outp = s:_googLuaTranslate(s:query)
   endif
@@ -95,6 +97,18 @@ function! s:GoogTranslate(...)
   endif
 
   return outp
+endfunction
+
+"sub translator is implemented on v8cgi
+"@return String
+function! s:_googV8cgiTranslate(query)
+    if !s:check() | return 0 | endif
+
+    let query = string(join(a:query,' '))
+    let langpair = string(s:goog_conf.langpair)
+
+    let s:outp = system("v8cgi ".s:joinPah("js","goog-translator-v8cgi.js").' '.query.' '.langpair)
+    return s:outp
 endfunction
 
 "sub translator is implemented on nodejs
