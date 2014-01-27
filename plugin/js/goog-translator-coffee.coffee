@@ -47,18 +47,21 @@ goog.translator = {
       .on "end", () ->
 
        result = eval body.join ''
+       if decodeURIComponent(query).split(' ').length == 1
+           [header, translates, misc] = result
+           for translate in translates
+               [entity, variants, details] = translate.slice(0, 3)
 
-       [header, translates, misc] = result
-       for translate in translates
-           [entity, variants, details] = translate.slice(0, 3)
-
-           console.log entity
-           for variant, variantIx in variants
-               if variantIx == LIMIT
-                   break
-               [word, trWords] = details[variantIx].slice(0, 2)
-               trWords = trWords.join ', '
-               console.log " -  #{rightFill(' ', 25, word + ":")}#{trWords}"
+               console.log entity
+               for variant, variantIx in variants
+                   if variantIx == LIMIT
+                       break
+                   [word, trWords] = details[variantIx].slice(0, 2)
+                   trWords = trWords.join ', '
+                   console.log " -  #{rightFill(' ', 25, word + ":")}#{trWords}"
+       else
+           header = result[0]
+           console.log header[0][0]
 
 
     .on 'error', (e) -> console.log "Error #{e}"

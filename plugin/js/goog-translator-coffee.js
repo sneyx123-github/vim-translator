@@ -48,28 +48,33 @@
         }).on("end", function() {
           var details, entity, header, misc, result, trWords, translate, translates, variant, variantIx, variants, word, _i, _len, _ref1, _results;
           result = eval(body.join(''));
-          header = result[0], translates = result[1], misc = result[2];
-          _results = [];
-          for (_i = 0, _len = translates.length; _i < _len; _i++) {
-            translate = translates[_i];
-            _ref1 = translate.slice(0, 3), entity = _ref1[0], variants = _ref1[1], details = _ref1[2];
-            console.log(entity);
-            _results.push((function() {
-              var _j, _len1, _ref2, _results1;
-              _results1 = [];
-              for (variantIx = _j = 0, _len1 = variants.length; _j < _len1; variantIx = ++_j) {
-                variant = variants[variantIx];
-                if (variantIx === LIMIT) {
-                  break;
+          if (decodeURIComponent(query).split(' ').length === 1) {
+            header = result[0], translates = result[1], misc = result[2];
+            _results = [];
+            for (_i = 0, _len = translates.length; _i < _len; _i++) {
+              translate = translates[_i];
+              _ref1 = translate.slice(0, 3), entity = _ref1[0], variants = _ref1[1], details = _ref1[2];
+              console.log(entity);
+              _results.push((function() {
+                var _j, _len1, _ref2, _results1;
+                _results1 = [];
+                for (variantIx = _j = 0, _len1 = variants.length; _j < _len1; variantIx = ++_j) {
+                  variant = variants[variantIx];
+                  if (variantIx === LIMIT) {
+                    break;
+                  }
+                  _ref2 = details[variantIx].slice(0, 2), word = _ref2[0], trWords = _ref2[1];
+                  trWords = trWords.join(', ');
+                  _results1.push(console.log(" -  " + (rightFill(' ', 25, word + ":")) + trWords));
                 }
-                _ref2 = details[variantIx].slice(0, 2), word = _ref2[0], trWords = _ref2[1];
-                trWords = trWords.join(', ');
-                _results1.push(console.log(" -  " + (rightFill(' ', 25, word + ":")) + trWords));
-              }
-              return _results1;
-            })());
+                return _results1;
+              })());
+            }
+            return _results;
+          } else {
+            header = result[0];
+            return console.log(header[0][0]);
           }
-          return _results;
         });
       }).on('error', function(e) {
         return console.log("Error " + e);
