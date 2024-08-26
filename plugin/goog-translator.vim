@@ -119,7 +119,13 @@ function! s:_googNodeJSTranslate(query)
     let query = string(join(a:query,' '))
     let langpair = string(s:goog_conf.langpair)
 
-    let s:outp = system("node ".s:joinPah("js","goog-translator-coffee.js").' '.query.' '.langpair)
+    "
+    " system is unable find to the "node.exe" when its called "node"
+    " 
+    " TODO: investigate vim behavior again if it try to use "cmd.exe" and 
+    " not "$SHELL" set my vim option "shell".
+    "
+    let s:outp = system("C:\\Users\\simon\\.conda\\envs\\cartopy-dev\\node.exe ".s:joinPah("js","goog-translator-coffee.js").' '.query.' '.langpair)
     return s:outp
 endfunction
 
